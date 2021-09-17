@@ -49,5 +49,5 @@ jobs:
           platforms: linux/amd64,linux/arm64/v8
           push: ${{ github.event_name != 'pull_request' }}
           tags: |
+            mereith/authing-dev:1.0.0
             mereith/authing-dev:latest
-            mereith/authing-dev:${{ steps.date.outputs.today }}           
