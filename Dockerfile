@@ -27,7 +27,9 @@ RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
     apt install -y redis-server && service redis-server start && \
     apt install -y postgresql postgresql-contrib && \
     pg_ctlcluster 10 main start && \
-    apt install python2.7 g++ -y
+    apt install python2.7 g++ -y && \
+    echo "service redis-server start" > /usr/local/authing/entrypoint.sh && \
+    echo "pg_ctlcluster 10 main start" >> /usr/local/authing/entrypoint.sh
 COPY ./ /usr/local/authing/
 USER postgres
 RUN pg_ctlcluster 10 main start &&  psql --command "CREATE USER authing WITH SUPERUSER PASSWORD 'authing123';" && \
