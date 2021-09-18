@@ -1,6 +1,6 @@
 #!/bin/bash
-GIT_USERNAME = $1
-GIT_PASSWORD = $2
+export GIT_USERNAME=$1
+export GIT_PASSWORD=$2
 if [ "$1" == "" ]; then
 echo "pull.sh <USER_NAME> <PASSWORD>"
 elif [ "$2" == "" ]; then
