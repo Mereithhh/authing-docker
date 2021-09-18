@@ -38,5 +38,5 @@ USER root
 COPY ./entrypoint.sh /
 EXPOSE 5432 6379 3000
 VOLUME [ "/etc/postgresql", "/var/log/postgresql", "/var/lib/postgresql", "/user/local/authing" ]
-ENTRYPOINT ["/bin/bash","/entrypoint.sh"]
+CMD ["/bin/bash","/entrypoint.sh"]
 
