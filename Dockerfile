@@ -36,6 +36,7 @@ RUN pg_ctlcluster 10 main start &&  psql --command "CREATE USER authing WITH SUP
     echo "listen_addresses='*'" >> /etc/postgresql/10/main/postgresql.conf
 USER root
 COPY ./entrypoint.sh /
+WORKDIR /usr/local/authing-dev
 EXPOSE 5432 6379 3000 3001 3002 
 VOLUME [ "/etc/postgresql", "/var/log/postgresql", "/var/lib/postgresql", "/user/local/authing" ]
 ENTRYPOINT [ "/entrypoint.sh"]
