@@ -5,7 +5,7 @@
 # 4. 正常开发
 FROM ubuntu:18.04
 WORKDIR /usr/local/authing
-ENV GIT_USERNAME=wanglu GIT_PASSWORD=heihei GIT_EMAIL=wanglu@authing.cn TZ=Asia/shanghai
+ENV TZ=Asia/shanghai
 COPY zoneinfo /usr/share/
 COPY nvm/ /root/.nvm/
 SHELL ["/bin/bash","-c"]
@@ -37,7 +37,7 @@ RUN pg_ctlcluster 10 main start &&  psql --command "CREATE USER authing WITH SUP
 USER root
 COPY ./entrypoint.sh /
 WORKDIR /usr/local/authing-dev
-EXPOSE 5432 6379 3000 3001 3002 
+EXPOSE 5432 6379 3000 3001 3002 9229 9230 9231
 VOLUME [ "/etc/postgresql", "/var/log/postgresql", "/var/lib/postgresql", "/user/local/authing" ]
 ENTRYPOINT [ "/entrypoint.sh"]
 
