@@ -5,7 +5,7 @@
 # 4. 正常开发
 FROM ubuntu:18.04
 WORKDIR /usr/local/authing
-ENV GIT_USERNAME=wanglu GIT_PASSWORD=vanlusg2! GIT_EMAIL=wanglu@authing.cn TZ=Asia/shanghai
+ENV GIT_USERNAME=wanglu GIT_PASSWORD=heihei GIT_EMAIL=wanglu@authing.cn TZ=Asia/shanghai
 COPY zoneinfo /usr/share/
 COPY nvm/ /root/.nvm/
 SHELL ["/bin/bash","-c"]
