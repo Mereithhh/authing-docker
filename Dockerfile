@@ -33,8 +33,7 @@ RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
     echo "bind-addr: 0.0.0.0:2333" > /root/.config/code-server/config.yaml && \
     echo "auth: password" > /root/.config/code-server/config.yaml && \
     echo "password: admin" > /root/.config/code-server/config.yaml && \
-    echo "cert: false" > /root/.config/code-server/config.yaml && \
-    service nginx start
+    echo "cert: false" > /root/.config/code-server/config.yaml 
 COPY ./ /usr/local/authing/
 COPY ./nginx/ /etc/nginx/conf.d/
 USER postgres
