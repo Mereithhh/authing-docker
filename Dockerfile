@@ -27,13 +27,13 @@ RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
     apt install -y redis-server && service redis-server start && \
     apt install -y postgresql postgresql-contrib && \
     pg_ctlcluster 10 main start && \
-    apt install python2.7 g++ -y && \
+    apt install python2.7 g++ nginx -y && \
     curl -fsSL https://code-server.dev/install.sh | sh && \
     mkdir -p /root/.config/code-server/ && \
     echo "bind-addr: 0.0.0.0:2333" > /root/.config/code-server/config.yaml && \
-    echo "auth: password" > /root/.config/code-server/config.yaml && \
-    echo "password: admin" > /root/.config/code-server/config.yaml && \
-    echo "cert: false" > /root/.config/code-server/config.yaml 
+    echo "auth: password" >> /root/.config/code-server/config.yaml && \
+    echo "password: admin" >> /root/.config/code-server/config.yaml && \
+    echo "cert: false" >> /root/.config/code-server/config.yaml 
 COPY ./ /usr/local/authing/
 COPY ./nginx/ /etc/nginx/conf.d/
 USER postgres
