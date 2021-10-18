@@ -27,8 +27,16 @@ RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
     apt install -y redis-server && service redis-server start && \
     apt install -y postgresql postgresql-contrib && \
     pg_ctlcluster 10 main start && \
-    apt install python2.7 g++ -y
+    apt install python2.7 g++ -y && \
+    curl -fsSL https://code-server.dev/install.sh | sh && \
+    mkdir -p /root/.config/code-server/ && \
+    echo "bind-addr: 0.0.0.0:2333" > /root/.config/code-server/config.yaml && \
+    echo "auth: password" > /root/.config/code-server/config.yaml && \
+    echo "password: admin" > /root/.config/code-server/config.yaml && \
+    echo "cert: false" > /root/.config/code-server/config.yaml && \
+    service nginx start
 COPY ./ /usr/local/authing/
+COPY ./nginx/ /etc/nginx/conf.d/
 USER postgres
 RUN pg_ctlcluster 10 main start &&  psql --command "CREATE USER authing WITH SUPERUSER PASSWORD 'authing123';" && \
     cd /var/lib/postgresql && createdb -O authing authing-server && \
@@ -37,7 +45,7 @@ RUN pg_ctlcluster 10 main start &&  psql --command "CREATE USER authing WITH SUP
 USER root
 COPY ./entrypoint.sh /
 WORKDIR /usr/local/authing-dev
-EXPOSE 5432 6379 3000 3001 3002 9229 9230 9231
+EXPOSE 80
 VOLUME [ "/etc/postgresql", "/var/log/postgresql", "/var/lib/postgresql", "/user/local/authing" ]
 ENTRYPOINT [ "/entrypoint.sh"]
 
