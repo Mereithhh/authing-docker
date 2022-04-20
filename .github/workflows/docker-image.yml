@@ -2,6 +2,9 @@ name: boy-next-door
 
 on:
   push:
+    branches:
+        - 'main'
+        - 'base'
 
 jobs:
   buildx:
