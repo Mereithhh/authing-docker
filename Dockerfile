@@ -21,11 +21,21 @@ RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
     npm install -g yarn --registry=https://registry.npm.taobao.org && \
     yarn config set registry https://registry.npm.taobao.org -g && \
     yarn config set sass_binary_site http://cdn.npm.taobao.org/dist/node-sass -g 
+RUN mkdir /var/run/sshd
+RUN echo 'root:root' |chpasswd
+RUN sed -ri 's/^#?PermitRootLogin\s+.*/PermitRootLogin yes/' /etc/ssh/sshd_config
+RUN sed -ri 's/UsePAM yes/#UsePAM yes/g' /etc/ssh/sshd_config
+
+RUN mkdir /root/.ssh
+
+RUN apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+EXPOSE 22 80
 COPY ./ /usr/local/authing/
-COPY ./nginx/ /etc/nginx/conf.d/
+COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
 COPY ./entrypoint.sh /
 WORKDIR /usr/local/authing
-EXPOSE 80
 VOLUME [ "/user/local/authing" ]
-ENTRYPOINT [ "/entrypoint.sh"]
+CMD    ["/usr/sbin/sshd", "-D"]
 
